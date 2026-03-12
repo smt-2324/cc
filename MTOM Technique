@@ -1,0 +1,223 @@
+# Practical: Develop Application to Download Image/Video from Server using MTOM Technique
+
+---
+
+# Step 1: Create a New ASP.NET Web Application
+
+1. Open **Visual Studio 2022**.
+2. Click **Create a new project**.
+3. Search and select **ASP.NET Web Application (.NET Framework)**.
+4. Click **Next**.
+5. Configure the project:
+
+   * **Project Name:** SimpleCCWebApplication
+   * **Framework:** .NET Framework 4.7.2
+6. Click **Create**.
+7. In the template selection window, choose **Empty**.
+8. Click **Create**.
+
+---
+
+# Step 2: Create an Images Folder and Add Content
+
+1. In **Solution Explorer**, right-click the project **SimpleCCWebApplication**.
+2. Select **Add → New Folder**.
+3. Name the folder **images**.
+4. Add image files such as:
+
+```
+Image1.gif
+download.jpeg
+```
+
+These files will be available for download from the server.
+
+---
+
+# Step 3: Create the Web Service (SOAP)
+
+1. Right-click the project.
+2. Select **Add → New Item**.
+3. Choose **Web Service (ASMX)**.
+4. Name it:
+DownloadImageWS.asmx
+5. Click **Add**.
+
+---
+
+# Step 4: Implement Web Service Logic
+
+Open **DownloadImageWS.asmx.cs** and add the following code.
+
+```csharp
+using System;
+using System.IO;
+using System.Web.Services;
+
+[WebService(Namespace = "http://tempuri.org/")]
+public class DownloadImageWS : WebService
+{
+
+    [WebMethod]
+    public byte[] DownloadImage(string imageName)
+    {
+        string path = Server.MapPath("~/images/" + imageName);
+
+        if (File.Exists(path))
+        {
+            return File.ReadAllBytes(path);
+        }
+
+        return null;
+    }
+
+}
+```
+
+This method reads the image from the **images folder** and sends it to the client as **binary data**.
+
+---
+
+# Step 5: Enable MTOM in Web.config
+
+Open **Web.config** and ensure the following configuration is added:
+
+```xml
+<configuration>
+<system.web>
+<compilation debug="true" targetFramework="4.7.2" />
+</system.web>
+</configuration>
+```
+
+MTOM allows **efficient transfer of binary data (images/videos)** in SOAP messages.
+
+---
+
+# Step 6: Create a Generic Handler
+
+1. Right-click the project.
+2. Select **Add → New Item**.
+3. Choose **Generic Handler**.
+4. Name it:
+MyHandler.ashx
+5. Click **Add**.
+
+---
+
+# Step 7: Implement Handler Logic
+
+Open **MyHandler.ashx.cs** and write:
+
+```csharp
+using System;
+using System.Web;
+
+public class MyHandler : IHttpHandler
+{
+
+    public void ProcessRequest(HttpContext context)
+    {
+        string img = context.Request.QueryString["img"];
+
+        string path = context.Server.MapPath("~/images/" + img);
+
+        context.Response.ContentType = "image/jpeg";
+        context.Response.WriteFile(path);
+    }
+
+    public bool IsReusable
+    {
+        get { return false; }
+    }
+
+}
+```
+
+This handler reads the image from the **server folder** and streams it to the client.
+
+---
+
+# Step 8: Create Web Form Client
+
+1. Right-click the project.
+2. Select **Add → Web Form**.
+3. Name the file:
+
+```
+Downloadimage.aspx
+```
+
+---
+
+# Step 9: Design the Web Page
+
+Open **Downloadimage.aspx** and add the following controls.
+
+```html
+Enter Image Name:
+<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+
+<br/><br/>
+
+<asp:Button ID="Button1" runat="server" 
+Text="Download Image and Show" 
+OnClick="Button1_Click" />
+
+<br/><br/>
+
+<asp:Label ID="Label1" runat="server"></asp:Label>
+
+<br/><br/>
+
+<asp:Image ID="Image1" runat="server" Height="200px" Width="200px"/>
+```
+
+---
+
+# Step 10: Implement Button Click Logic
+
+Open **Downloadimage.aspx.cs** and write:
+
+```csharp
+protected void Button1_Click(object sender, EventArgs e)
+{
+
+    string imgname = TextBox1.Text;
+
+    Label1.Text = "Downloading of Image is done";
+
+    Image1.ImageUrl = "MyHandler.ashx?img=" + imgname;
+
+}
+```
+
+This will **call the handler and display the image on the page**.
+
+---
+
+# Step 11: Run and Test the Application
+
+1. Right-click **Downloadimage.aspx**.
+2. Select **View in Browser**.
+3. Enter an image name such as:
+
+```
+Image1.gif
+```
+
+4. Click **Download Image and Show**.
+
+---
+
+# Step 12: Verify the Result
+
+The browser will display:
+
+```
+Downloading of Image is done
+```
+
+and the selected **image will appear on the webpage**.
+
+---
