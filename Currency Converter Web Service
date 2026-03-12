@@ -1,0 +1,116 @@
+# Practical: Currency Converter Web Service
+
+## Step 1: Create a New Web Application
+
+1. Open NetBeans IDE.
+2. Click **File → New Project**.
+3. Select **Java Web → Web Application** and click **Next**.
+4. Enter the **Project Name: Practical1** and choose the project location.
+5. Select **Server: GlassFish Server 4.1**.
+6. Select **Java EE Version: Java EE 7 Web**.
+7. Set the **Context Path: /Practical1**.
+8. Click **Finish**.
+
+---
+
+# Step 2: Create the Web Service
+
+1. Right-click on the project **Practical1**.
+2. Select **New → Web Service**.
+3. Enter the **Web Service Name: CurrencyConverter**.
+4. Enter the **Package Name: server**.
+5. Select **Create Web Service from Scratch**.
+6. Click **Finish**.
+
+---
+
+# Step 3: Add the Conversion Operation
+
+1. Open **CurrencyConverter.java** in the editor.
+2. Right-click inside the code area and select **Insert Code**.
+3. Choose **Add Web Service Operation**.
+4. In the dialog box enter:
+
+   * **Name:** InrtoDollar
+   * **Return Type:** java.lang.String
+5. Click **Add Parameter** and enter:
+
+   * **Name:** a
+   * **Type:** double
+6. Click **OK**.
+7. Replace the default `return null;` statement with:
+
+```java
+return "The Indian rupees " + a + " in Dollars is: " + (a/83.17);
+```
+
+---
+
+# Step 4: Deploy and Test the Web Service
+
+1. Right-click the project **Practical1** and select **Deploy**.
+2. In the **Projects tab**, expand the **Web Services** folder.
+3. Right-click **CurrencyConverter** and select **Test Web Service**.
+4. A tester page will open in the browser.
+5. Enter a value (for example **125**) in the **InrtoDollar** field.
+6. Click the **Invoke** button to see the result.
+
+---
+
+# Step 5: Create the JSP Client
+
+## Step 5.1 Create Input Page (input.jsp)
+
+1. Right-click the project and select **New → JSP**.
+2. Enter the **File Name: input** and click **Finish**.
+3. Write the following code in **input.jsp**:
+
+```html
+<form action="output.jsp">
+Enter Indian Rupees to Convert:
+<input type="text" name="t1">
+<input type="submit" value="Convert">
+<input type="reset">
+</form>
+```
+
+---
+
+# Step 5.2 Create Web Service Client
+
+1. Right-click the project and select **New → Web Service Client**.
+2. Choose **Project** and browse to select **CurrencyConverter** service from **Practical1**.
+3. Enter the **Package Name: Client**.
+4. Click **Finish**.
+
+---
+
+# Step 5.3 Create Output Page (output.jsp)
+
+1. Right-click the project and select **New → JSP**.
+2. Enter the **File Name: output** and click **Finish**.
+3. Write the following code in **output.jsp**:
+
+```jsp
+<%@ page import="Client.*" %>
+
+<%
+double a = Double.parseDouble(request.getParameter("t1"));
+
+CurrencyConverter_Service service = new CurrencyConverter_Service();
+CurrencyConverter port = service.getCurrencyConverterPort();
+
+String result = port.inrtoDollar(a);
+out.println(result);
+%>
+```
+
+---
+
+# Step 6: Run the Application
+
+1. Right-click **input.jsp**.
+2. Select **Run File** or press **Shift + F6**.
+3. The browser will open the input page.
+4. Enter the amount in **Indian Rupees** and click **Convert**.
+5. The result will display the converted value in **Dollars**.
