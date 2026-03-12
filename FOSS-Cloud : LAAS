@@ -1,0 +1,65 @@
+# Practical: Implement FOSS-Cloud Functionality VSI (Virtual Server Infrastructure) – Infrastructure as a Service (IaaS) and Storage
+
+---
+
+# Step 1: Create a New Virtual Machine
+
+1. Open your virtualization software (for example **VMware Workstation**).
+2. Click **Create a New Virtual Machine** to start the **New Virtual Machine Wizard**.
+3. Select **Installer disc image file (ISO)**.
+4. Browse and select the ISO file:
+
+```
+C:\cc\foss-cloud-installer-1.3.2.iso
+```
+
+5. Select **Guest Operating System: Linux**.
+6. Choose **Version: Other Linux 5.x kernel 64-bit**.
+
+---
+
+# Step 2: Configure Virtual Hardware
+
+1. Enter the **Virtual Machine Name**:
+Foss Server
+2. Specify **Disk Capacity**:
+135 GB
+3. Select the option:
+Store virtual disk as a single file
+4. Allocate **Memory (RAM)**:
+2048 MB (2 GB)
+5. Configure the **Network Adapter**:
+Bridged Network
+
+This allows the **FOSS-Cloud node to be accessible on the local network**.
+
+---
+
+# Step 3: Boot the FOSS-Cloud Installer
+
+1. Power on the **Virtual Machine**.
+2. The system will boot from the **FOSS-Cloud ISO file**.
+3. From the boot menu select:
+FOSS-Cloud Installer: default boot option
+4. Wait for the system to **load the kernel and initialize the environment**.
+
+# Step 4: Run the Installation
+
+1. When the message **Welcome to FOSS-Cloud-Installer v1.3.2** appears, the system will ask whether to start installation.
+2. Type the following command:
+yes
+3. Press **Enter** to begin the installation process.
+4. The installer will automatically:
+   * Prepare disk **partitions**
+   * Install **Virtual Server Infrastructure (VSI)**
+   * Configure **cloud services**
+
+---
+
+# Step 5: System Initialization
+
+1. After installation is complete, the system will display a command prompt such as:
+root@sysresccd
+2. The FOSS-Cloud server is now installed and initialized.
+
+---
