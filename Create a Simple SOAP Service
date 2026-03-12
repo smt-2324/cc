@@ -1,0 +1,102 @@
+# Practical: Create a Simple SOAP Service
+
+## Step 1: Create a New Project
+
+1. Open **Visual Studio 2022**.
+2. Click **Create a new project**.
+3. Make sure the **ASP.NET and Web Development workload** is installed.
+4. Search for **ASP.NET Web Application (.NET Framework)** and click **Next**.
+5. Configure the project with the following details:
+
+   * **Project Name:** SimpleCCWebApplication
+   * **Framework:** .NET Framework 4.7.2
+6. Click **Create**.
+7. In the template selection window, choose **Empty**.
+8. Click **Create**.
+
+---
+
+# Step 2: Add a Web Service (SOAP)
+
+1. In **Solution Explorer**, right-click the project **SimpleCCWebApplication**.
+2. Select **Add → New Item**.
+3. In the search box, type **Web Service**.
+4. Select **Web Service (ASMX)**.
+5. Name the file **WebService1.asmx**.
+6. Click **Add**.
+
+---
+
+# Step 3: Implement Conversion Logic
+
+Open the file **WebService1.asmx.cs** and add the following web methods.
+
+### Dollar to Rupee (D2R)
+[WebMethod]
+public double D2R(double dollar)
+{
+    double ans = dollar * 82;
+    return ans;
+}
+### Rupee to Dollar (R2D)
+[WebMethod]
+public double R2D(double rupees)
+{
+    double ans = rupees / 82;
+    return ans;
+}
+```
+
+These methods convert **Dollar to Rupees** and **Rupees to Dollars**.
+
+---
+
+# Step 4: Build and Run the Service
+
+1. Right-click the project **SimpleCCWebApplication**.
+2. Select **Build**.
+3. Ensure the build is successful with no errors.
+4. In **Solution Explorer**, right-click **WebService1.asmx**.
+5. Select **View in Browser**.
+
+---
+
+# Step 5: Test the SOAP Service
+
+1. The browser will display the available web service operations:
+
+   * **D2R (Dollar to Rupee)**
+   * **R2D (Rupee to Dollar)**
+
+2. To test **D2R**:
+
+   * Click the **D2R** link.
+   * Enter a value for **dollar** (for example **2**).
+   * Click **Invoke**.
+   * The result will appear in **XML format** showing the converted value.
+
+Example Output:
+
+```
+164
+```
+
+3. To test **R2D**:
+
+   * Go back to the service page.
+   * Click the **R2D** link.
+   * Enter a value for **rupees** (for example **82**).
+   * Click **Invoke**.
+   * The converted value will be displayed in **XML format**.
+
+Example Output:
+
+```
+1
+```
+
+---
+
+# Result
+
+The SOAP web service was successfully created using **ASP.NET Web Application (.NET Framework)**. The service provides two operations to convert **Dollar to Rupees** and **Rupees to Dollars**, and the results were successfully tested through the browser.
