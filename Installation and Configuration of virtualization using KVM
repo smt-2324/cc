@@ -1,0 +1,96 @@
+# Practical: Installation and Configuration of Virtualization using KVM
+
+## Step 1: Verify Hardware Virtualization Support
+
+1. Before installing KVM, verify that the CPU supports virtualization (**Intel VT-x or AMD-V**).
+2. Open the **terminal** and run the following command:
+
+```bash
+egrep -c '(vmx|svm)' /proc/cpuinfo
+```
+
+3. If the output is **1 or greater**, virtualization is supported and enabled on the system.
+
+---
+
+# Step 2: Install KVM and Required Tools on VMware Ubuntu
+
+1. Update the package repository using the following command:
+sudo apt update
+
+2. Install **KVM and virtualization management tools**:
+sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager
+
+3. These packages install:
+
+* **qemu-kvm** – virtualization module
+* **libvirt** – virtualization management service
+* **bridge-utils** – network bridge utilities
+* **virt-manager** – graphical virtual machine manager
+
+---
+
+# Step 3: Launch Virtual Machine Manager
+
+1. Open **Virtual Machine Manager** from the application menu.
+2. Alternatively, open it using the terminal:
+virt-manager
+3. Ensure that the **QEMU/KVM connection** is active.
+
+---
+
+# Step 4: Create a New Virtual Machine
+
+1. Click the **Create a new virtual machine** icon.
+2. In **Step 1 of 5**, select:
+
+```text
+Local install media (ISO image or CDROM)
+```
+
+3. Click **Forward**.
+4. In **Step 2 of 5**, click **Browse** and select the **ISO file** of the operating system (for example Windows or Linux).
+
+---
+
+# Step 5: Configure Resources
+
+1. Allocate **Memory (RAM)** for the virtual machine (for example **1024 MB**).
+2. Select the number of **CPU cores**.
+3. Create a **virtual disk image** for storage (for example **8 GB**).
+
+---
+
+# Step 6: Final Review and Network Configuration
+
+1. Verify the **installation details** such as OS type, memory, and storage.
+2. Under **Advanced Options**, check that the **Virtual Network** is set to:
+
+```text
+default: NAT
+```
+
+3. Click **Finish** to create the virtual machine.
+
+---
+
+# Step 7: Install the Guest Operating System
+
+1. The virtual machine will automatically **start and boot from the selected ISO file**.
+2. Follow the **normal installation steps of the operating system** (for example Linux or Windows installation).
+3. The OS will install on the **virtual hardware provided by KVM**.
+
+---
+
+# Step 8: Post-Installation
+
+1. After the installation is completed, the virtual machine will **restart automatically**.
+2. The guest operating system will load inside **Virtual Machine Manager**.
+3. The VM is now **ready to use and manage from the KVM interface**.
+
+---
+
+# Result
+
+Virtualization was successfully installed and configured using **Kernel-based Virtual Machine (KVM)**. A virtual machine was created, and a guest operating system was installed and executed within the Virtual Machine Manager.
+
