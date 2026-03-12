@@ -1,0 +1,103 @@
+# Practical: Implementation of OpenStack with User and Private Network Creation
+
+# Step 1: Update Ubuntu System
+
+Open the **Terminal** and update the system packages.
+
+```bash
+sudo apt update
+sudo apt -y upgrade
+sudo apt -y dist-upgrade
+```
+
+Reboot the system after the update.
+
+```bash
+sudo reboot
+```
+
+---
+
+# Step 2: Create Stack User
+
+Create a new user named **stack**.
+sudo useradd -s /bin/bash -d /opt/stack -m stack
+
+echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
+
+sudo su - stack
+```
+
+---
+
+# Step 3: Install Git
+
+Install **Git** if it is not available on the system.
+
+```bash
+sudo apt install git -y
+```
+
+---
+
+# Step 4: Download DevStack
+
+git clone https://git.openstack.org/openstack-dev/devstack
+
+cd devstack
+```
+
+---
+
+# Step 5: Create DevStack Configuration File
+
+Create a configuration file named **local.conf**:
+nano local.conf
+
+Add the following configuration in .conf file:
+
+[[local|localrc]]
+
+ADMIN_PASSWORD=StrongAdminSecret
+DATABASE_PASSWORD=$ADMIN_PASSWORD
+RABBIT_PASSWORD=$ADMIN_PASSWORD
+SERVICE_PASSWORD=$ADMIN_PASSWORD
+
+HOST_IP=192.168.56.103
+
+* **ADMIN_PASSWORD** will be used for OpenStack login.
+* **HOST_IP** is the IP address of your VM.
+
+To find your IP address:
+ip addr
+---
+
+# Step 6: Install OpenStack using DevStack
+./stack.sh
+
+DevStack will install the following services:
+
+* **Nova** – Compute Service
+* **Glance** – Image Service
+* **Keystone** – Identity Service
+* **Cinder** – Block Storage Service
+* **Neutron** – Networking Service
+* **Horizon** – OpenStack Dashboard
+* **Swift** – Object Storage
+
+The installation process may take **10–20 minutes**.
+
+---
+
+# Step 7: Access OpenStack Dashboard
+
+After installation, open a **web browser** and enter the Horizon dashboard URL.
+http://<IP Address>/dashboard
+```
+
+Login using the credentials:
+
+Username: admin
+Password: StrongAdminSecret
+
+You will now see the **OpenStack Dashboard (Horizon)**.
