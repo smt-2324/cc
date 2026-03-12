@@ -1,0 +1,152 @@
+# Practical: Develop Application to Consume Google Map RESTful Web Service
+
+## Step 1: Create a New Web Application
+
+1. Open **NetBeans IDE** and select **New Project**.
+2. Choose **Java Web → Web Application** and click **Next**.
+3. Enter the **Project Name: Practical4** and select the project location.
+4. Select **Server: GlassFish Server 4.1**.
+5. Select **Java EE Version: Java EE 7 Web**.
+6. Set the **Context Path: /Practical4**.
+7. Click **Finish** (no frameworks required).
+
+---
+
+# Step 2: Create the Input Page (input.jsp)
+
+1. Right-click the project **Practical4**.
+2. Select **New → JSP**.
+3. Enter the **File Name: input** and click **Finish**.
+
+### input.jsp
+
+```html
+<html>
+<body>
+
+<h2>Google Map Location Viewer</h2>
+
+<form action="index.jsp">
+
+Enter Latitude:
+<input type="text" name="t1"/>
+
+<br><br>
+
+Enter Longitude:
+<input type="text" name="t2"/>
+
+<br><br>
+
+<input type="submit" value="Show"/>
+
+</form>
+
+</body>
+</html>
+```
+
+---
+
+# Step 3: Obtain a Google API Key
+
+1. Open the **Google APIs Console** in your browser.
+2. Sign in with your **Google account**.
+3. Click **Create Project** and enter a name (for example **DemoProject**).
+4. Open **API Library**.
+5. Search for **Maps JavaScript API**.
+6. Click **Enable**.
+7. Go to the **Credentials** tab.
+8. Click **+ Create Credentials → API Key**.
+9. Copy the generated **API Key** for use in your program.
+
+---
+
+# Step 4: Create the Display Page (index.jsp)
+
+1. Right-click the project.
+2. Select **New → JSP**.
+3. Enter the **File Name: index** and click **Finish**.
+
+### index.jsp
+
+```jsp
+<%
+
+double lati = Double.parseDouble(request.getParameter("t1"));
+double longi = Double.parseDouble(request.getParameter("t2"));
+
+%>
+
+<html>
+<head>
+
+<style>
+#map {
+height: 500px;
+width: 100%;
+}
+</style>
+
+<script>
+
+function initMap() {
+
+var location = {lat: <%=lati%>, lng: <%=longi%>};
+
+var map = new google.maps.Map(document.getElementById("map"), {
+zoom: 10,
+center: location
+});
+
+var marker = new google.maps.Marker({
+position: location,
+map: map
+});
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<h2>Google Map Location</h2>
+
+<div id="map"></div>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+</script>
+
+</body>
+</html>
+```
+
+Replace **YOUR_API_KEY** with the **actual Google API key**.
+
+---
+
+# Step 5: Run and Test the Application
+
+1. Right-click the project **Practical4**.
+2. Select **Deploy**.
+3. Right-click **input.jsp** and select **Run File**.
+4. The browser will open the input page.
+5. Enter values such as:
+
+```
+Latitude: 19.0260
+Longitude: 72.8553
+```
+
+6. Click **Show**.
+
+The Google Map will open and **display a marker at the entered location**.
+
+---
+
+# Result
+
+The web application successfully consumed **Google Maps RESTful Web Service** using latitude and longitude values and displayed the specified location on the Google Map.
