@@ -1,0 +1,110 @@
+# Practical: Create a Simple RESTful Web Service
+
+## Step 1: Create a New Web Application
+
+1. Open **NetBeans IDE**.
+2. Click **File → New Project**.
+3. Under **Categories**, select **Java Web** and under **Projects**, select **Web Application**. Click **Next**.
+4. Enter the **Project Name: RestfullService**.
+5. Choose the **Project Location** and click **Next**.
+6. Select **GlassFish Server 4.1** as the server.
+7. Select **Java EE Version: Java EE 7 Web**.
+8. Set the **Context Path: /RestfullService**.
+9. Click **Finish**.
+
+---
+
+# Step 2: Create RESTful Web Service from Patterns
+
+1. Right-click the project **RestfullService**.
+2. Select **New → RESTful Web Services from Patterns**.
+3. Choose **Simple Root Resource** and click **Next**.
+4. Configure the following details:
+
+* **Resource Package:** StringOperationPackage
+* **Path:** generic
+* **Class Name:** StringOperations
+* **MIME Type:** text/html
+
+5. Click **Finish**.
+
+NetBeans will automatically create the file **StringOperations.java**.
+
+---
+
+# Step 3: Implement String Operations
+
+Open **StringOperations.java** and add the following methods.
+
+### Uppercase Method
+
+```java
+@PUT
+@Consumes("text/html")
+@Path("/Uppercase")
+public String toUpperCaseMethod(String str) {
+    return str.toUpperCase();
+}
+```
+
+---
+
+### Lowercase Method
+
+```java
+@PUT
+@Consumes("text/html")
+@Path("/Lowercase")
+public String toLowerCaseMethod(String str) {
+    return str.toLowerCase();
+}
+```
+
+These methods convert the given string into **uppercase** and **lowercase**.
+
+---
+
+# Step 4: Deploy and Test the REST Service
+
+1. Right-click the project **RestfullService**.
+2. Select **Clean and Build**.
+3. Right-click the project again and select **Deploy**.
+4. Make sure **GlassFish Server** is running.
+5. Right-click the project and select **Test RESTful Web Services**.
+6. In the **Configure REST Test Client** dialog box, select **Web Test Client in Project**.
+7. Click **OK**.
+
+---
+
+# Step 5: Verify the Results in Browser
+
+1. The test page will open in the browser:
+
+```
+http://localhost:8080/RestfullService/test-resbeans.html
+```
+
+2. On the **left navigation bar**, select **Uppercase** or **Lowercase** service.
+3. Choose the method **PUT (text/html)**.
+4. In the **Content** box, enter a string, for example:
+
+```
+Cloud Computing and Web Services Practical RESTful
+```
+
+5. Click **Test**.
+
+---
+
+# Step 6: Check the Response
+
+1. Verify that the **Status: 200 (OK)** is displayed.
+2. The converted string will appear in the **Response section**.
+
+Example:
+
+Uppercase Result:
+CLOUD COMPUTING AND WEB SERVICES PRACTICAL RESTFUL
+Lowercase Result:
+cloud computing and web services practical restful
+```
