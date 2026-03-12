@@ -1,0 +1,132 @@
+# Practical: Develop a Simple Application using AWS Flow Framework
+
+# Step 1: Update the System
+
+Open the **Terminal** and update the Ubuntu system.
+sudo apt-get update && sudo apt-get upgrade
+This command updates the system packages.
+
+---
+
+# Step 2: Download AWS CLI
+
+Download AWS CLI using the command:
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+---
+
+# Step 3: Download Signature File
+
+Download the AWS CLI signature verification file.
+curl -o awscliv2.sig https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip.sig
+
+---
+
+# Step 4: Extract the Zip File
+
+Unzip the downloaded file.
+unzip awscliv2.zip
+
+---
+
+# Step 5: Install AWS CLI
+
+Run the installation command.
+sudo ./aws/install
+
+Check installation:
+aws --version
+
+---
+
+# Step 6: Install AWS SAM CLI
+
+Install AWS Serverless Application Model CLI.
+pip3 install aws-sam-cli
+
+---
+
+# Step 7: Initialize SAM Application
+
+Run the following command to start SAM CLI.
+sam init
+
+Select option:
+1 - AWS Quick Start Templates
+
+---
+
+# Step 8: Select Hello World Template
+
+Choose the template:
+1 - Hello World Example
+
+---
+
+# Step 9: Select Runtime
+
+Type **N** when asked to use most popular runtime.
+
+Check Python version:
+python --version
+
+Select runtime accordingly.
+
+Example:
+python3.11
+
+---
+
+# Step 10: Select Package Type
+
+Choose package type:
+1 - Zip
+
+---
+
+# Step 11: Create Project
+
+Answer **Yes (y)** to configuration options.
+Enter project name:
+sam-app-test
+
+The template will be downloaded and project folder will be created.
+
+---
+
+# Step 12: Invoke Hello World Function
+
+Move to project folder:
+cd sam-app-test
+
+Run the function locally:
+sam local invoke "HelloWorldFunction"
+
+Expected Output:
+
+```json
+{
+"statusCode": 200,
+"body": "{\"message\": \"hello world\"}"
+}
+```
+
+---
+
+# Step 13: Start Local API
+
+Run the API locally.
+sam local start-api
+
+It will generate a URL such as:
+http://127.0.0.1:3000/hello
+
+Open the URL in a browser.
+
+Output:
+
+```json
+{
+"message": "hello world"
+}
+```
